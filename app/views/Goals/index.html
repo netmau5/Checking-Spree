@@ -1,0 +1,86 @@
+<form action="#{if goal}@{Goals.edit}#{/if}#{else}@{Goals.add}#{/else}" method="POST">
+  #{if goal}
+  <input type="hidden" value="${goal.id}" name="goalId"/>
+  #{/if}
+  <table>
+    <tr>
+      <td>
+        <label for="goalRequest.name">Name</label>
+      </td>
+      <td>
+        <input type="text" name="goalRequest.name" value="${goal?.name}" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.created">Start Date</label>
+      </td>
+      <td>
+        <input type="text" class='datepicker' name="goalRequest.created" value='${goal?.created?.format() ?: goalResponse?.NOW.format()}' />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.sunday">Sunday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.sunday" #{if !goal || goal?.isActive('SUNDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.monday">Monday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.monday" #{if !goal || goal?.isActive('MONDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.tuesday">Tuesday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.tuesday" #{if !goal || goal?.isActive('TUESDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.wednesday">Wednesday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.wednesday" #{if !goal || goal?.isActive('WEDNESDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.thursday">Thursday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.thursday" #{if !goal || goal?.isActive('THURSDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.friday">Friday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.friday" #{if !goal || goal?.isActive('FRIDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="goalRequest.saturday">Saturday</label>
+      </td>
+      <td>
+        <input type="checkbox" name="goalRequest.saturday" #{if !goal || goal?.isActive('SATURDAY')}checked='checked'#{/if}/>
+      </td>
+    </tr>
+  </table>
+  <div class="controls">
+    #{if goal}
+      <a href='@{Goals.delete(goal.id)}' class="minor">Delete</a>
+    #{/if}
+    <a href='#' onclick="$(this).parents('form').submit();" class="button major">Save</a>
+    <a href='#' onclick="$('#${goal?'edit':'add'}-goal-form-container').dialog('close');" class="button major">Cancel</a>
+  </div>
+</form>

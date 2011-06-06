@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>#{get 'title' /}</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/reset.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/960.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/Aristo/jquery-ui-1.8.7.custom.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/uniform.default.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/checkingspree.css'}">
+
+  <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+
+  <script src="@{'/public/javascripts/frontend-all-min.js'}" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body>
+
+  <div class="header">
+  <div class="container_16">
+    <div class="grid_16 alpha omega">
+      <h1>Checking<em>Spree</em></h1>
+    </div>
+    <div class="clear"></div>
+  </div>
+  </div>
+
+  #{doLayout /}
+
+  <script type="text/javascript">
+    var redecorate = function() {
+      $("input[type=checkbox]").uniform();
+      $(".button").button();
+      $('.datepicker').datepicker();
+    }
+    $(document).ready(redecorate);
+  </script>
+
+</body>
+</html>

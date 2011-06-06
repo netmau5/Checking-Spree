@@ -1,0 +1,201 @@
+body {
+  text-shadow: 0 1px 0 white;
+  font-size: 16px;
+  font-family: Helvetica;
+  height: 100%;
+  width: 100%;
+  border-top: 4px solid #006600;
+  color: #595959;
+  background: url('../images/page-bg.png');
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #211F1F;
+}
+
+h3 { margin-bottom: 1em; }
+
+table tr td { vertical-align: middle; }
+
+/* header */
+
+.header {
+  background: #8ADC92;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  background: -webkit-gradient(linear, left bottom, right top, from(#B3E862), to(#73DAC1));
+  background: -moz-linear-gradient(left bottom, #B3E862, #73DAC1);
+  background: gradient(linear, left bottom, right top, from(#B3E862), to(#73DAC1));
+
+  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+  .header h1 {
+    font-size: 24px;
+    text-shadow: 0 1px 0 #ccffcc;
+  }
+
+  .header h1 em {
+    color: #1e4432;
+    font-style: normal;
+  }
+
+/* library */
+
+.content-box {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+
+  webkit-box-shadow: inset 0px 1px 1px #000000;
+  -moz-box-shadow: inset 0px 1px 1px #000000;
+  box-shadow: inset 0px 1px 1px #000000;
+
+  border-bottom: 1px solid white;
+  background-color: #ddd;
+  margin-bottom: 20px;
+}
+
+  .content-box-inner {
+    padding: 15px;
+  }
+
+p { margin-bottom: 1em; }
+
+/* goal list */
+
+.button-create-goal { float: right; }
+
+.goal-list table { width: 100%; }
+
+  .goal-list table tr td,
+  .goal-list table tr th {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .goal-list table tr td.goal,
+  .goal-list table tr th.goal {
+    text-align: left;
+  }
+
+  .goal-list table tr td a {
+    display: inline-block;
+  }
+
+  .goal-list table tr td a.checkoff-CHECKED:hover,
+  .goal-list table tr td a.checkoff-SKIPPED:hover,
+  .goal-list table tr td a.checkoff-NOT_CHECKED:hover,
+  .goal-list table tr td a.checkoff-UNSET:hover {
+    cursor: pointer;
+    position: relative;
+    top: -3px;
+    left: -3px;
+    background-color: #fff;
+    -webkit-box-shadow: #66ff00 1px 1px 0, #66ff00 2px 2px 0, #66ff00 3px 3px 0;
+    -moz-box-shadow: #66ff00 1px 1px 0, #66ff00 2px 2px 0, #66ff00 3px 3px 0;
+    -o-box-shadow: #66ff00 1px 1px 0, #66ff00 2px 2px 0, #66ff00 3px 3px 0;
+    box-shadow: #66ff00 1px 1px 0, #66ff00 2px 2px 0, #66ff00 3px 3px 0;
+  }
+
+  .goal-list table tr td a.checkoff-CHECKED:active,
+  .goal-list table tr td a.checkoff-SKIPPED:active,
+  .goal-list table tr td a.checkoff-NOT_CHECKED:active,
+  .goal-list table tr td a.checkoff-UNSET:active {
+    -webkit-box-shadow: 0 0 0 0;
+    -moz-box-shadow: 0 0 0 0;
+    -o-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+    position: inherit;
+  }
+
+  .goal-list table tr td a.checkoff-streak-1 { background-color: #f1feed; }
+  .goal-list table tr td a.checkoff-streak-2 { background-color: #e5fedd; }
+  .goal-list table tr td a.checkoff-streak-3 { background-color: #d8fdcd; }
+  .goal-list table tr td a.checkoff-streak-4 { background-color: #cbfcbc; }
+  .goal-list table tr td a.checkoff-streak-5 { background-color: #befcac; }
+  .goal-list table tr td a.checkoff-streak-6 { background-color: #b2fb9c; }
+  .goal-list table tr td a.checkoff-streak-7 { background-color: #a5fa8b; }
+  .goal-list table tr td a.checkoff-streak-big { background-color: #98fa7b; }
+
+.goal-list h3 { margin-top: 6px; }
+
+.goal-list .checkoff-today {
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+}
+
+/* goal form */
+
+#add-goal-form-container,
+#edit-goal-form-container {
+  background: url('../images/page-bg.png');
+}
+
+label {
+  text-align: right;
+  display: block;
+  padding-right: 4px;
+}
+
+.controls {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.controls .major {
+  float: right;
+  margin-left: 5px;
+}
+
+.controls .minor {
+  float: left;
+  margin-right: 5px;
+}
+
+/* checkoff table */
+
+table tr th,
+table tr td {
+  padding: 4px 4px;
+}
+
+/* checkoff states */
+
+.checkoff {
+  padding-left: 32px;
+  line-height: 32px;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+  .checkoff-CHECKED {
+    background-image: url("../images/glyphicons_198_ok.png");
+  }
+
+  .checkoff-NOT_CHECKED {
+    background-image: url("../images/glyphicons_197_remove.png");
+  }
+
+  .checkoff-SKIPPED {
+    background-image: url("../images/glyphicons_199_ban.png");
+  }
+
+  .checkoff-NOT_COUNTED {
+    background-color: #333;
+  }
+
+/* legend */
+
+.legend-entry {
+  height: 32px;
+  line-height: 32px;
+}
+
+  .legend-entry .checkoff {
+    margin-right: 8px;
+    float: left;
+    display: block;
+  }

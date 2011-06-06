@@ -1,0 +1,150 @@
+#{extends 'main.html' /}
+#{set title:'Checking Spree' /}
+
+<style type="text/css">
+
+</style>
+
+
+
+<div id="add-goal-form-container" style="display:none;">
+  #{include "Goals/index.html"/}
+</div>
+<div id="edit-goal-form-container" style="display:none;">
+</div>
+
+<div class="container_16">
+
+  <div class="grid_16 alpha omega content-box goal-list">
+  <div class="content-box-inner">
+    <a href="#" class="button button-create-goal">+ Add Goal</a>
+    <h3>Daily Checklists</h3>
+    <table>
+      <tr>
+        <th class="goal">Goals</th>
+        #{list items: 0..14, as: "i"}
+          <th class="#{if i==0}checkoff-today#{/if}">${i.daysAgo()}</th>
+        #{/list}
+      </tr>
+      #{list items: goalResponse.goals, as: "goal"}
+      <tr>
+        <td class="goal">
+          <a href="#" class="button-edit-goal" goal-id="${goal.id}">${goal.name ?: "(unnamed)"}</a>
+        </td>
+        #{list items: 0..14, as: "daysAgo"}
+          %{ def checkoff = goalResponse.getCheckoff(daysAgo, goal) }%
+          <td class="#{if daysAgo==0}checkoff-today#{/if}">
+            #{if checkoff.state.toString() != "NOT_COUNTED"}
+            <a href="#"
+               goal-id="${goal.id}"
+               days-ago="${daysAgo}"
+               title='Streak: ${checkoff.streak}'
+               class='checkoff
+                checkoff-streak-${checkoff.streak}
+                #{if checkoff.streak > 7}checkoff-streak-big#{/if}
+                checkoff-${checkoff.state}
+                '></a>
+            #{/if}
+            #{else}
+            <div class='checkoff
+            checkoff-${checkoff.state}
+            '></div>
+            #{/else}
+          </td>
+        #{/list}
+      </tr>
+      #{/list}
+    </table>
+  </div>
+  </div>
+  <div class="grid_8 alpha content-box">
+  <div class="content-box-inner">
+    <h3>About</h3>
+    <p>
+      This is a sample application to demonstrate the usage of the Play Framework Twig Module and keep track of your
+      daily goals in the process (hello exercise!). This module
+      is the best way to store data on Google App Engine's datastore.
+    </p>
+    <p>
+      Need help? Visit the <a href="https://github.com/netmau5/Play-Twig">Git Repository</a>, <a href="https://groups.google.com/forum/#!forum/play-framework">Play Google Group</a>,
+      or <a href="http://www.urbancoding.net/">Urban Coding</a>.
+    </p>
+  </div>
+  </div>
+  <div class="grid_8 omega content-box">
+  <div class="content-box-inner">
+    <h3>Legend</h3>
+    <div class="legend-entry"><div class="checkoff checkoff-CHECKED"></div>Goal completed for the day.</div>
+    <div class="legend-entry"><div class="checkoff checkoff-NOT_CHECKED"></div>Goal failed for the day.</div>
+    <div class="legend-entry"><div class="checkoff checkoff-SKIPPED"></div>Goal knowingly skipped (doesn't break streak).</div>
+    <div class="legend-entry"><div class="checkoff checkoff-NOT_COUNTED"></div>Goal not scheduled for the day.</div>
+  </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+    var checkState = #{jsAction @Checkoffs.changeState(':goalId', ':daysAgo', ':state') /};
+    $(".checkoff:not[.checkoff-NOT_COUNTED]").live("click", function(){
+      var $$ = $(this),
+          goalId = $$.attr('goal-id'),
+          daysAgo = $$.attr('days-ago');
+
+      if ($$.hasClass("checkoff-NOT_COUNTED")) {
+        //do nothing
+      }
+      else if ($$.hasClass("checkoff-CHECKED")) {
+        $$.removeClass("checkoff-CHECKED")
+          .addClass("checkoff-SKIPPED");
+        $.post(checkState({
+          goalId: goalId,
+          daysAgo: daysAgo,
+          state: "SKIPPED"
+        }));
+      }
+      else if ($$.hasClass("checkoff-SKIPPED")) {
+        $$.removeClass("checkoff-SKIPPED")
+            .addClass("checkoff-NOT_CHECKED");
+        $.post(checkState({
+          goalId: goalId,
+          daysAgo: daysAgo,
+          state: "NOT_CHECKED"
+        }));
+      }
+      else { //skipped or nothing set
+        $$.removeClass("checkoff-NOT_CHECKED")
+          .addClass("checkoff-CHECKED");
+        $.post(checkState({
+          goalId: goalId,
+          daysAgo: daysAgo,
+          state: "CHECKED"
+        }));
+      }
+
+      return false;
+    });
+
+    $(".button-create-goal").click(function(){
+      $("#add-goal-form-container").dialog({
+        title: "Add Goal",
+        width: 400
+      });
+    });
+
+    var editGoalForm = #{jsAction @Goals.index(':goalId') /};
+    $(".button-edit-goal").live("click", function(){
+      var container = $("#edit-goal-form-container");
+      container.load(editGoalForm({
+        goalId: $(this).attr("goal-id")
+      }), null, redecorate);
+      container.dialog({
+        title: "Edit Goal",
+        width: 400
+      });
+    });
+  });
+
+</script>

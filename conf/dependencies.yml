@@ -1,0 +1,9 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> gae 1.4
+    - play -> twig 0.3
+    - play -> secure
+    - com.google.guava -> guava r07
+    - joda-time -> joda-time 1.6
